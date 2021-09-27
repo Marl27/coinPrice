@@ -12,3 +12,4 @@ mplfinance~=0.12.7a17
 matplotlib~=3.2.2
 backtrader~=1.9.76.123
 black==19.10b0
+python-dotenv

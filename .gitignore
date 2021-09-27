@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# env
+*.env
+.idea/
+
+# DB
+Coin_price.db

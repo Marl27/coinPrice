@@ -22,6 +22,7 @@ class CoinList(Base):
 class Coin_data(Base):
     __tablename__ = 'coin_data'
     coin_data_id = Column(Integer, primary_key=True)
+    coin_list_id = Column(Integer)
     symbol = Column(String(10)) #TEXT [pk, not null, unique]
     interval_id = Column(String(10)) #int [pk, not null]
     open_time = Column(String(20)) #TEXT [pk, not null]

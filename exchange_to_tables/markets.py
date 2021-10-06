@@ -6,8 +6,8 @@ from sql_alchemy_dir import models
 from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
-API_KEY = os.environ['API_KEY']
-API_SECRET = os.environ['API_SECRET']
+API_KEY = os.environ["API_KEY"]
+API_SECRET = os.environ["API_SECRET"]
 
 
 # Variables
@@ -20,11 +20,12 @@ def populate_coin_list():
     for symbol in symbols:
         count += 1
         coin = models.CoinList(coin_list_id=count, symbol=f"{symbol['symbol']}")
-        #coin = models.CoinList(symbol=f"{symbol['symbol']}")
-        #models.session.add(coin)
+        # coin = models.CoinList(symbol=f"{symbol['symbol']}")
+        # models.session.add(coin)
         models.session.merge(coin)
         models.session.commit()
-        #print(symbol)
+        # print(symbol)
+
 
 def populate_coin_data():
     pass

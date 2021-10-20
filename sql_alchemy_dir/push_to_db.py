@@ -1,8 +1,9 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from binance.client import Client
 from sql_alchemy_dir import models
+#import talib
 
 # from sqlalchemy import select
 from sql_alchemy_dir.db_connect import db_con
@@ -63,10 +64,6 @@ def populate_coin_data():
             candlesticks = client.get_historical_klines(
                 coin_name, getattr(Client, timeframe), "06 Oct, 2021", "06 Oct, 2021"
             )
-            ## Solve it with batch challenge
-            # T1 and T2
-            # how many days in between
-            # Then keep adding T1 and T2 until it has reached the original T2
 
             for candlestick in candlesticks:
                 (
@@ -79,8 +76,12 @@ def populate_coin_data():
                     end_date,
                     *_other_var,
                 ) = candlestick
-                start_time = datetime.fromtimestamp(start_date / 1000).strftime(date_time_format)
-                end_time = datetime.fromtimestamp(end_date / 1000).strftime(date_time_format)
+                start_time = datetime.fromtimestamp(start_date / 1000).strftime(
+                    date_time_format
+                )
+                end_time = datetime.fromtimestamp(end_date / 1000).strftime(
+                    date_time_format
+                )
                 coin_data = models.Coin_data(
                     coin_data_id=data_id,
                     coin_list_id=coin_id,
@@ -98,8 +99,102 @@ def populate_coin_data():
     models.session.commit()
 
 
-populate_coin_data()
+"""populate_coin_data()"""
 
+
+# Solve it with batch challenge
+# T1 and T2
+# how many days in between
+# Then keep adding T1 and T2 until it has reached the original T2
+def batch_maker(t1, t2):
+    date_format = "%d %b, %Y"
+    time_1 = datetime.strptime(t1, date_format)
+    time_2 = datetime.strptime(t2, date_format)
+    print(time_1)
+    print(type(datetime.now()))
+    number_of_days = time_2 - time_1
+    print(number_of_days.days)
+    # date_to_be = '2021 - 09 - 30 00: 00:00'
+
+    f = time_1 + timedelta(days=1 + 1)
+    print(f.strftime(date_format))
+
+    date_to_be = []
+    for i in range(number_of_days.days):
+        f = time_1 + timedelta(days=i + 1)
+        date_to_be.append(f.strftime(date_format))
+    print(date_to_be)
+
+    date_to_be_1 = [
+        (time_1 + timedelta(days=num_of_days_to_add + 1)).strftime(date_format)
+        for num_of_days_to_add in range(number_of_days.days)
+    ]
+    print(date_to_be_1)
+
+
+# batch_maker("30 Sep, 2021", "09 Oct, 2021")
+
+
+timeframes = [
+    "KLINE_INTERVAL_1MONTH",
+    "KLINE_INTERVAL_1WEEK",
+    "KLINE_INTERVAL_3DAY",
+    "KLINE_INTERVAL_1DAY",
+    "KLINE_INTERVAL_12HOUR",
+    "KLINE_INTERVAL_8HOUR",
+    "KLINE_INTERVAL_6HOUR",
+    "KLINE_INTERVAL_4HOUR",
+    "KLINE_INTERVAL_2HOUR",
+    "KLINE_INTERVAL_1HOUR",
+    "KLINE_INTERVAL_30MINUTE",
+    "KLINE_INTERVAL_15MINUTE",
+    "KLINE_INTERVAL_5MINUTE",
+    "KLINE_INTERVAL_3MINUTE",
+    "KLINE_INTERVAL_1MINUTE",
+]
+
+
+def batch_maker_2(t_frames, t1, t2):
+    import math
+
+    required_number_of_candles = 1000
+    number_of_minutes_in_hour = 60
+    hours_in_a_day = 24
+    days_in_a_week = 7
+    days_in_a_month = 30
+    minutes_in_a_day = hours_in_a_day * number_of_minutes_in_hour
+
+
+
+    length_until_the_digit = len("KLINE_INTERVAL_")
+
+    for t_frame in t_frames:
+        if t_frame.endswith("MONTH"):
+            print(int(t_frame[length_until_the_digit : -len("MONTH")]), "MONTH")
+            print(
+                math.ceil(required_number_of_candles / (minutes_in_a_day / (minutes_in_a_day * days_in_a_month * int(t_frame[length_until_the_digit : -len("MONTH")])))))
+
+        elif t_frame.endswith("WEEK"):
+            print(int(t_frame[length_until_the_digit : -len("WEEK")]), "WEEK")
+            print(
+                math.ceil(required_number_of_candles / (minutes_in_a_day / (minutes_in_a_day * days_in_a_week * int(t_frame[length_until_the_digit : -len("WEEK")])))))
+        elif t_frame.endswith("DAY"):
+            print(int(t_frame[length_until_the_digit : -len("DAY")]), "DAY")
+            print(
+                math.ceil(required_number_of_candles / (minutes_in_a_day / (minutes_in_a_day * int(t_frame[length_until_the_digit : -len("DAY")])))))
+        elif t_frame.endswith("HOUR"):
+            print(int(t_frame[length_until_the_digit : -len("HOUR")]), "HOURS")
+            print(
+                math.ceil(required_number_of_candles / (minutes_in_a_day / (number_of_minutes_in_hour * int(t_frame[length_until_the_digit : -len("HOUR")])))))
+        elif t_frame.endswith("MINUTE"):
+            print(int(t_frame[length_until_the_digit : -len("MINUTE")]), "MINUTE")
+            print(
+                math.ceil(required_number_of_candles / (minutes_in_a_day / int(t_frame[length_until_the_digit : -len("MINUTE")]))))
+
+    #         print(t_frame)
+
+
+batch_maker_2(timeframes, "30 Sep, 2021", "09 Oct, 2021")
 
 # commit just once first-go - 3:47.59
 # commit just once second-go - 3:50.59

@@ -89,6 +89,11 @@ three_black_crows = talib.CDL3BLACKCROWS(df['open'], df['high'], df['low'], df['
 abandoned_baby = talib.CDLABANDONEDBABY(df['open'], df['high'], df['low'], df['close'], penetration=0)
 
 doji = talib.CDLDOJI(df['open'], df['high'], df['low'], df['close'])
+trendLine = talib.HT_TRENDLINE(df['close'])
+
+print('trendLine')
+print(trendLine)
+
 print("****morning_star****")
 print(morning_star[morning_star != 0])
 print(df.loc[[312, 1044]])

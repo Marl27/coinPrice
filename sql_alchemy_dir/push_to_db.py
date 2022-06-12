@@ -2,11 +2,11 @@ import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from binance.client import Client
-from sql_alchemy_dir import models
-#import talib
+import models
+import talib
 
 # from sqlalchemy import select
-from sql_alchemy_dir.db_connect import db_con
+from db_connect import db_con
 
 
 engine = db_con().connect()
@@ -34,27 +34,30 @@ def populate_coin_data():
     date_time_format = "%d-%m-%Y %H:%M:%S"
     # timeframe = "1d"
     # client.KLINE_INTERVAL_1MINUTE = "1d" "1M"
+    # timeframes = [
+    #     "KLINE_INTERVAL_1MONTH",
+    #     "KLINE_INTERVAL_1WEEK",
+    #     "KLINE_INTERVAL_3DAY",
+    #     "KLINE_INTERVAL_1DAY",
+    #     "KLINE_INTERVAL_12HOUR",
+    #     "KLINE_INTERVAL_8HOUR",
+    #     "KLINE_INTERVAL_6HOUR",
+    #     "KLINE_INTERVAL_4HOUR",
+    #     "KLINE_INTERVAL_2HOUR",
+    #     "KLINE_INTERVAL_1HOUR",
+    #     "KLINE_INTERVAL_30MINUTE",
+    #     "KLINE_INTERVAL_15MINUTE",
+    #     "KLINE_INTERVAL_5MINUTE",
+    #     "KLINE_INTERVAL_3MINUTE",
+    #     "KLINE_INTERVAL_1MINUTE",
+    # ]
     timeframes = [
-        "KLINE_INTERVAL_1MONTH",
-        "KLINE_INTERVAL_1WEEK",
-        "KLINE_INTERVAL_3DAY",
-        "KLINE_INTERVAL_1DAY",
-        "KLINE_INTERVAL_12HOUR",
-        "KLINE_INTERVAL_8HOUR",
-        "KLINE_INTERVAL_6HOUR",
-        "KLINE_INTERVAL_4HOUR",
-        "KLINE_INTERVAL_2HOUR",
-        "KLINE_INTERVAL_1HOUR",
-        "KLINE_INTERVAL_30MINUTE",
-        "KLINE_INTERVAL_15MINUTE",
-        "KLINE_INTERVAL_5MINUTE",
-        "KLINE_INTERVAL_3MINUTE",
-        "KLINE_INTERVAL_1MINUTE",
+        "KLINE_INTERVAL_1DAY"
     ]
 
     coin_list = enumerate(
         models.session.query(models.CoinList).filter(
-            models.CoinList.symbol.like("%USDT")
+            models.CoinList.symbol.like("%RPUSDT")
         )
     )  # .limit(5))
     for data_id, coin in coin_list:
@@ -62,7 +65,7 @@ def populate_coin_data():
 
         for timeframe in timeframes:
             candlesticks = client.get_historical_klines(
-                coin_name, getattr(Client, timeframe), "06 Oct, 2021", "06 Oct, 2021"
+                coin_name, getattr(Client, timeframe), "06 Oct, 2019", "13 June, 2022"
             )
 
             for candlestick in candlesticks:
@@ -82,7 +85,7 @@ def populate_coin_data():
                 end_time = datetime.fromtimestamp(end_date / 1000).strftime(
                     date_time_format
                 )
-                coin_data = models.Coin_data(
+                coin_data = models.Coin_data_ta_lib(
                     coin_data_id=data_id,
                     coin_list_id=coin_id,
                     symbol=coin_name,
@@ -99,9 +102,9 @@ def populate_coin_data():
     models.session.commit()
 
 
-"""populate_coin_data()"""
+populate_coin_data()
 
-
+"""
 # Solve it with batch challenge
 # T1 and T2
 # how many days in between
@@ -196,11 +199,5 @@ def batch_maker_2(t_frames, t1, t2):
 
 batch_maker_2(timeframes, "30 Sep, 2021", "09 Oct, 2021")
 
-# commit just once first-go - 3:47.59
-# commit just once second-go - 3:50.59
 
-# commit twice first-go - 3:50.59
-# commit twice second-go - 3:30.59
-
-# commit within the loop first-go - 5:46.59
-# commit within the loop second-go - 3:30.59
+"""

@@ -2,13 +2,17 @@ import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from binance.client import Client
-import models
+#import models
 import talib
+import sys
+sys.path.append('.')
+from sql_alchemy_dir.models import Coin_data, CoinList, session
+
 
 # from sqlalchemy import select
-from db_connect import db_con
+from sql_alchemy_dir.db_connect import db_con
 
-
+from utils.date_range import latest_date_in_coin_data, date_tomorrow_in_binance_format
 engine = db_con().connect()
 
 
@@ -24,14 +28,14 @@ client = Client(API_KEY, API_SECRET)
 def populate_coin_list():
     symbols = enumerate(client.get_all_tickers())
     for list_id, symbol in symbols:
-        coin = models.CoinList(coin_list_id=list_id, symbol=symbol["symbol"])
-        models.session.merge(coin)
-    models.session.commit()
+        coin = CoinList(coin_list_id=list_id, symbol=symbol["symbol"])
+        session.merge(coin)
+    session.commit()
 
 
 def populate_coin_data():
     populate_coin_list()
-    date_time_format = "%d-%m-%Y %H:%M:%S"
+    date_time_format = "%Y-%m-%d %H:%M:%S"
     # timeframe = "1d"
     # client.KLINE_INTERVAL_1MINUTE = "1d" "1M"
     # timeframes = [
@@ -52,20 +56,23 @@ def populate_coin_data():
     #     "KLINE_INTERVAL_1MINUTE",
     # ]
     timeframes = [
-        "KLINE_INTERVAL_1DAY"
+        "KLINE_INTERVAL_15MINUTE"
     ]
 
     coin_list = enumerate(
-        models.session.query(models.CoinList).filter(
-            models.CoinList.symbol.like("%RPUSDT")
+        session.query(CoinList).filter(
+            CoinList.symbol.like("%USDT")
         )
     )  # .limit(5))
     for data_id, coin in coin_list:
         coin_name, coin_id = coin.symbol, coin.coin_list_id
-
+        print('******coin_name, coin_id******')
+        print(coin_name, coin_id)
         for timeframe in timeframes:
             candlesticks = client.get_historical_klines(
-                coin_name, getattr(Client, timeframe), "06 Oct, 2019", "13 June, 2022"
+                #coin_name, getattr(Client, timeframe), "18 June, 2022", "06 July, 2022"
+                #coin_name, getattr(Client, timeframe), "05 July, 2022", "11 July, 2022"
+                coin_name, getattr(Client, timeframe), latest_date_in_coin_data(), date_tomorrow_in_binance_format()
             )
 
             for candlestick in candlesticks:
@@ -79,13 +86,12 @@ def populate_coin_data():
                     end_date,
                     *_other_var,
                 ) = candlestick
-                start_time = datetime.fromtimestamp(start_date / 1000).strftime(
-                    date_time_format
-                )
-                end_time = datetime.fromtimestamp(end_date / 1000).strftime(
-                    date_time_format
-                )
-                coin_data = models.Coin_data_ta_lib(
+
+                start_time = datetime.fromtimestamp(start_date / 1000) #.strftime(date_time_format)
+                #start_time = datetime.fromtimestamp(1656979200000 / 1000).strftime(date_time_format)
+                end_time = datetime.fromtimestamp(end_date / 1000) #.strftime(date_time_format)
+
+                coin_data = Coin_data(
                     coin_data_id=data_id,
                     coin_list_id=coin_id,
                     symbol=coin_name,
@@ -97,9 +103,10 @@ def populate_coin_data():
                     close=close,
                     volume=volume,
                     close_time=end_time,
+                    #created_at=datetime.now,
                 )
-                models.session.merge(coin_data)
-    models.session.commit()
+                session.merge(coin_data)
+    session.commit()
 
 
 populate_coin_data()

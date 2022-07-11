@@ -24,9 +24,9 @@ def latest_date_in_coin_data():
     # result_proxy = engine.execute("SELECT MAX(open_time) FROM coin_data WHERE symbol = 'BTCUSDT';")
     # test, *more_test = result_proxy
 
-    fingers_crossed = models.session.query(func.max(models.Coin_data.open_time)).filter_by(symbol='BTCUSDT')
+    max_date_for_btcusdt = models.session.query(func.max(models.Coin_data.open_time)).filter_by(symbol='BTCUSDT')
 
-    result, *unpacking_rest_of_the_tuple = fingers_crossed
+    result, *unpacking_rest_of_the_tuple = max_date_for_btcusdt
     #result = None
     if result:
         print('in IF')

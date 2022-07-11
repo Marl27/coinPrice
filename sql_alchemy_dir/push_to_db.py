@@ -34,7 +34,7 @@ def populate_coin_list():
 
 
 def populate_coin_data():
-    populate_coin_list()
+    #populate_coin_list()
     date_time_format = "%Y-%m-%d %H:%M:%S"
     # timeframe = "1d"
     # client.KLINE_INTERVAL_1MINUTE = "1d" "1M"

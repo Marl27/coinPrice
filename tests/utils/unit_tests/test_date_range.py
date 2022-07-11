@@ -13,7 +13,7 @@ def test_date_7_days_ago(expected):
                           ('2022-07-10', '10 Jul, 2022'), ])
 def test_binance_API_date_format(input, expected): # , yyyy_mm_dd):
     assert binance_API_date_format(input) == expected
-    # return datetime.strptime(yyyy_mm_dd, '%Y-%m-%d').strftime("%d %b, %Y")
+
 
 # def test_latest_date_in_coin_data():
 #     # Worked at first, suddenly stopped working

@@ -19,7 +19,7 @@ for symbol in distinct_symbol_df['symbol']:
     FROM coin_data
     WHERE symbol = '{}'
     ORDER BY coin_data_id, coin_list_id, symbol, open_time DESC
-    LIMIT 700)
+    LIMIT 200)
     SELECT open_time, symbol, open, high, low, close, volume
     FROM DESC_TIME_CANDLES
     ORDER BY symbol, open_time

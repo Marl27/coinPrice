@@ -159,3 +159,43 @@ starting ttm_squeeze
 end_time - Mon Jul 18 02:57:23 2022 
 time_taken_to_populate - 3.4859941720962526 
 total_time - 5.723235746224721 
+**********************
+start_time - Mon Jul 18 03:32:21 2022 
+starting ttm_squeeze 
+end_time - Mon Jul 18 03:38:30 2022 
+time_taken_to_populate - 3.975089212258657 
+total_time - 6.163049407800039 
+**********************
+start_time - Mon Jul 18 03:42:23 2022 
+starting ttm_squeeze 
+end_time - Mon Jul 18 03:42:23 2022 
+time_taken_to_populate - 0.0 
+time_to_run_ttm_squeeze - 0.0 
+total_time - 0.0 
+**********************
+start_time - Mon Jul 18 03:42:47 2022 
+starting ttm_squeeze 
+end_time - Mon Jul 18 03:42:49 2022 
+time_taken_to_populate - 0.033510975042978924 
+time_to_run_ttm_squeeze - 0.0 
+total_time - 0.033510975042978924 
+**********************
+start_time - Mon Jul 18 03:43:19 2022 
+starting ttm_squeeze 
+end_time - Mon Jul 18 03:43:23 2022 
+time_taken_to_populate - 0.03345170815785726 
+time_to_run_ttm_squeeze - 0.03352156082789103 
+total_time - 0.06697326898574829 
+**********************
+start_time - Mon Jul 18 03:44:01 2022 
+starting ttm_squeeze 
+end_time - Mon Jul 18 03:49:53 2022 
+time_taken_to_populate - 3.5319899757703146 
+time_to_run_ttm_squeeze - 2.335548237959544 
+total_time - 5.867538213729858 
+**********************
+start_time - Mon Jul 18 03:52:24 2022 
+end_time - Mon Jul 18 03:58:02 2022 
+time_taken_to_populate_table - 3.531606944402059 
+time_to_run_ttm_squeeze - 2.113090598583222 
+total_time - 5.644697542985281 

@@ -34,7 +34,7 @@ class Coin_data(Base):
     volume = Column(String(20))  # TEXT
     close_time = Column(DateTime)  # TEXT
     created_at = Column(DateTime, default=datetime.now) #().strftime("%Y-%m-%d %H:%M:%S"))
-
+    updated_at = Column(DateTime)
 #
 # class Coin_data_ta_lib(Base):
 #     __tablename__ = "coin_data_ta_lib"

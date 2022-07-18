@@ -33,6 +33,9 @@ def populate_coin_list():
     session.commit()
 
 
+max_date_in_coin_data = latest_date_in_coin_data()
+date_tomorrow = date_tomorrow_in_binance_format()
+
 def populate_coin_data():
     #populate_coin_list()
     date_time_format = "%Y-%m-%d %H:%M:%S"
@@ -72,7 +75,7 @@ def populate_coin_data():
             candlesticks = client.get_historical_klines(
                 #coin_name, getattr(Client, timeframe), "18 June, 2022", "06 July, 2022"
                 #coin_name, getattr(Client, timeframe), "05 July, 2022", "11 July, 2022"
-                coin_name, getattr(Client, timeframe), latest_date_in_coin_data(), date_tomorrow_in_binance_format()
+                coin_name, getattr(Client, timeframe), max_date_in_coin_data, date_tomorrow
             )
 
             for candlestick in candlesticks:
@@ -90,6 +93,7 @@ def populate_coin_data():
                 start_time = datetime.fromtimestamp(start_date / 1000) #.strftime(date_time_format)
                 #start_time = datetime.fromtimestamp(1656979200000 / 1000).strftime(date_time_format)
                 end_time = datetime.fromtimestamp(end_date / 1000) #.strftime(date_time_format)
+                #now = datetime.now()
 
                 coin_data = Coin_data(
                     coin_data_id=data_id,
@@ -103,13 +107,13 @@ def populate_coin_data():
                     close=close,
                     volume=volume,
                     close_time=end_time,
-                    #created_at=datetime.now,
+                    updated_at=datetime.now(),
                 )
                 session.merge(coin_data)
     session.commit()
 
 
-populate_coin_data()
+#populate_coin_data()
 
 """
 # Solve it with batch challenge

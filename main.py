@@ -27,8 +27,8 @@ line_6 = f'total_time - {str(total_time/60)} \n'
 with open('logging.txt', 'a') as f:
     f.writelines('**********************\n')
     f.writelines(line_1)
+    f.writelines(line_4)
     f.writelines(line_2)
     f.writelines(line_3)
-    f.writelines(line_4)
     f.writelines(line_5)
     f.writelines(line_6)

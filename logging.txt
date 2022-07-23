@@ -316,3 +316,73 @@ get_coin_data_from_table - []
 end_time - Tue Jul 19 01:12:45 2022 
 time_to_run_ttm_squeeze - 3.729275898138682 
 total_time - 3.729275898138682 
+**********************
+start_time - Tue Jul 19 01:16:36 2022 
+time_taken_to_populate_table - 3.5701330502827964 
+get_coin_data_from_table - []
+end_time - Tue Jul 19 01:24:12 2022 
+time_to_run_ttm_squeeze - 4.027094757556915 
+total_time - 7.597227807839712 
+**********************
+start_time - Tue Jul 19 03:12:18 2022 
+time_taken_to_populate_table - 3.8011699597040813 
+get_coin_data_from_table - []
+end_time - Tue Jul 19 03:20:14 2022 
+time_to_run_ttm_squeeze - 4.124898894627889 
+total_time - 7.92606885433197 
+**********************
+start_time - Tue Jul 19 19:50:06 2022 
+end_time - Tue Jul 19 19:57:20 2022 
+time_taken_to_populate_table - 4.854906411965688 
+get_coin_data_from_table - ['PERLUSDT is coming out the squeeze', 'TROYUSDT is coming out the squeeze', 'OGNUSDT is coming out the squeeze', 'TCTUSDT is coming out the squeeze', 'PNTUSDT is coming out the squeeze', 'BLZUSDT is coming out the squeeze', 'FIDAUSDT is coming out the squeeze', 'GMTUSDT is coming out the squeeze']
+time_to_run_ttm_squeeze - 2.3848122715950018 
+total_time - 7.23971868356069 
+**********************
+start_time - Tue Jul 19 20:16:05 2022 
+end_time - Tue Jul 19 20:16:07 2022 
+time_taken_to_populate_table - 0.0 
+get_coin_data_from_table - ['GMTUSDT is coming out the squeeze']
+time_to_run_ttm_squeeze - 0.02781680425008138 
+total_time - 0.02781680425008138 
+**********************
+start_time - Tue Jul 19 21:37:26 2022 
+end_time - Tue Jul 19 21:37:28 2022 
+time_taken_to_populate_table - 0.0 
+get_coin_data_from_table - ['GMTUSDT is coming out the squeeze']
+time_to_run_ttm_squeeze - 0.031162575880686442 
+total_time - 0.031162575880686442 
+**********************
+start_time - Tue Jul 19 21:44:53 2022 
+end_time - Tue Jul 19 21:52:28 2022 
+time_taken_to_populate_table - 5.187715339660644 
+get_coin_data_from_table - ['USDCUSDT is coming out the squeeze']
+time_to_run_ttm_squeeze - 2.4055310328801474 
+total_time - 7.593246372540792 
+**********************
+start_time - Wed Jul 20 06:30:58 2022 
+end_time - Wed Jul 20 06:39:22 2022 
+time_taken_to_populate_table - 5.987427425384522 
+get_coin_data_from_table - []
+time_to_run_ttm_squeeze - 2.416233519713084 
+total_time - 8.403660945097606 
+**********************
+start_time - Wed Jul 20 06:49:45 2022 
+end_time - Wed Jul 20 06:56:52 2022 
+time_taken_to_populate_table - 3.790040858586629 
+get_coin_data_from_table - []
+time_to_run_ttm_squeeze - 3.334395654996236 
+total_time - 7.124436513582865 
+**********************
+start_time - Wed Jul 20 07:50:12 2022 
+end_time - Wed Jul 20 07:57:20 2022 
+time_taken_to_populate_table - 4.344674603144328 
+get_coin_data_from_table - []
+time_to_run_ttm_squeeze - 2.7829378604888912 
+total_time - 7.127612463633219 
+**********************
+start_time - Wed Jul 20 22:00:16 2022 
+end_time - Wed Jul 20 22:06:17 2022 
+time_taken_to_populate_table - 5.9038069923718774 
+get_coin_data_from_table - []
+time_to_run_ttm_squeeze - 0.11963980595270751 
+total_time - 6.023446798324585 
